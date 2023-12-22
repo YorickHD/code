@@ -1,0 +1,23 @@
+#include <iostream>
+
+int countDifferentFromLast(int* arr, int size) {
+    int count = 0;
+    int lastElement = *(arr + size - 1); // Получаем значение последнего элемента массива
+    for (int i = 0; i < size - 1; i++) { // Проходим по массиву, исключая последний элемент
+        if (*(arr + i) != lastElement) {
+            count++;
+        }
+    }
+    return count;
+}
+
+int main() {
+    const int size = 5;
+    int array[size] = {1, 2, 3, 4, 4};
+
+    int result = countDifferentFromLast(array, size);
+
+    std::cout << "Количество элементов отличных от последнего: " << result << std::endl;
+
+    return 0;
+}
