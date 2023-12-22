@@ -1,0 +1,46 @@
+#include <iostream>
+#include <vector>
+
+int main() {
+    // Объявляем двумерный массив размером 3x3
+    const int rows = 3;
+    const int cols = 3;
+    std::vector<std::vector<int>> matrix(rows, std::vector<int>(cols));
+
+    // Заполняем массив с клавиатуры
+    std::cout << "Введите " << rows * cols << " чисел для заполнения матрицы:" << std::endl;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            std::cin >> matrix[i][j];
+        }
+    }
+
+    // Выводим содержимое массива на экран
+    std::cout << "Заполненная матрица:" << std::endl;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            std::cout << matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    // Вычисляем сумму элементов в каждой строке
+    for (int i = 0; i < rows; i++) {
+        int sum = 0;
+        for (int j = 0; j < cols; j++) {
+            sum += matrix[i][j];
+        }
+        std::cout << "Сумма элементов в строке " << i + 1 << ": " << sum << std::endl;
+    }
+
+    // Вычисляем сумму элементов в каждом столбце
+    for (int j = 0; j < cols; j++) {
+        int sum = 0;
+        for (int i = 0; i < rows; i++) {
+            sum += matrix[i][j];
+        }
+        std::cout << "Сумма элементов в столбце " << j + 1 << ": " << sum << std::endl;
+    }
+
+    return 0;
+}
