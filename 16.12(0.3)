@@ -1,0 +1,48 @@
+#include <iostream>
+#include <vector>
+#include <cstdlib>
+#include <ctime>
+
+int main() {
+    // Инициализируем генератор случайных чисел
+    std::srand(static_cast<unsigned int>(std::time(nullptr)));
+
+    const int rows = 3;
+    const int cols = 3;
+    std::vector<std::vector<int>> matrix(rows, std::vector<int>(cols));
+
+    // Заполняем массив случайными числами от 10 до 100
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            matrix[i][j] = std::rand() % 91 + 10; // Генерируем число от 10 до 100
+        }
+    }
+
+    // Выводим содержимое массива на экран
+    std::cout << "Сгенерированная матрица:" << std::endl;
+    for (int i = 0; i < rows; i++) {
+        for (int j = 0; j < cols; j++) {
+            std::cout << matrix[i][j] << " ";
+        }
+        std::cout << std::endl;
+    }
+
+    // Вычисляем сумму элементов в каждой строке и находим строку с максимальной суммой
+    int maxSum = 0;
+    int maxSumRow = 0;
+    for (int i = 0; i < rows; i++) {
+        int sum = 0;
+        for (int j = 0; j < cols; j++) {
+            sum += matrix[i][j];
+        }
+        std::cout << "Сумма элементов в строке " << i + 1 << ": " << sum << std::endl;
+        if (sum > maxSum) {
+            maxSum = sum;
+            maxSumRow = i;
+        }
+    }
+
+    std::cout << "Строка с максимальной суммой: " << maxSumRow + 1 << std::endl;
+
+    return 0;
+}
