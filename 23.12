@@ -1,0 +1,65 @@
+#include <iostream>
+#include <vector>
+#include <queue>
+#include <climits>
+
+const int INF = INT_MAX;
+
+int minCostElectrification(int n, int k, std::vector<int>& powerStations, std::vector<std::vector<int>>& costMatrix) {
+    std::vector<bool> inMST(n, false);
+    std::vector<int> key(n, INF);
+    std::vector<int> parent(n, -1);
+
+    for (int i : powerStations) {
+        key[i - 1] = 0;
+    }
+
+    for (int count = 0; count < n - 1; count++) {
+        int u = -1;
+        for (int v = 0; v < n; v++) {
+            if (!inMST[v] && (u == -1 || key[v] < key[u])) {
+                u = v;
+            }
+        }
+
+        inMST[u] = true;
+
+        for (int v = 0; v < n; v++) {
+            if (costMatrix[u][v] && !inMST[v] && costMatrix[u][v] < key[v]) {
+                parent[v] = u;
+                key[v] = costMatrix[u][v];
+            }
+        }
+    }
+
+    int minCost = 0;
+    for (int i = 0; i < n; i++) {
+        if (i + 1 != powerStations[0]) {
+            minCost += key[i];
+        }
+    }
+
+    return minCost;
+}
+
+int main() {
+    int n, k;
+    std::cin >> n >> k;
+
+    std::vector<int> powerStations(k);
+    for (int i = 0; i < k; i++) {
+        std::cin >> powerStations[i];
+    }
+
+    std::vector<std::vector<int>> costMatrix(n, std::vector<int>(n));
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            std::cin >> costMatrix[i][j];
+        }
+    }
+
+    int result = minCostElectrification(n, k, powerStations, costMatrix);
+    std::cout << result << std::endl;
+
+    return 0;
+}
